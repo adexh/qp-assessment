@@ -5,6 +5,7 @@ export const registerSchema = userSchema.pick({
   email: true,
   password: true,
   name: true,
+  role: true
 });
 
 export const loginSchema = userSchema.pick({

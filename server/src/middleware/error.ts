@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import { AppError, handleError } from '@/utils/error';
 import { ZodError } from 'zod';
 import { config } from '@/config';
+import { logger } from '@/utils/logger';
 
 export const errorHandler: ErrorRequestHandler = (
   err: Error,

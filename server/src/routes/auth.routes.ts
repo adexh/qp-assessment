@@ -8,18 +8,31 @@ const router = Router();
 
 /**
  * @swagger
- * /api/register:
+ * /api/auth/register:
  *   post:
  *     summary: Retrieve an example message
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: name
- *         required: false
- *         schema:
- *           type: string
- *         description: Optional name to personalize the message
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Adesh Tamrakar
+ *               email:
+ *                 type: string
+ *                 example: adesh.t111@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: StrongPassword123#
  *     responses:
  *       200:
  *         description: A successful response
@@ -30,6 +43,34 @@ router.post(
   authController.register
 );
 
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Retrieve an example message
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: adesh.t111@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: StrongPassword123#
+ *     responses:
+ *       200:
+ *         description: A successful response
+ */
 router.post(
   '/login',
   validate(z.object({ body: loginSchema })),

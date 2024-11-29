@@ -1,21 +1,22 @@
-import { prisma } from '@/lib/prisma';
+import { client } from '@/config';
 import { hashPassword, comparePasswords } from '@/utils/password';
 import { generateToken } from '@/utils/jwt';
 import { AppError } from '@/utils/error';
 import { RegisterInput, LoginInput, AuthResponse } from '@/schemas';
 
-export const register = async ({ email, password, name }: RegisterInput): Promise<AuthResponse> => {
-  const existingUser = await prisma.user.findUnique({ where: { email } });
+export const register = async ({ email, password, name, role }: RegisterInput): Promise<AuthResponse> => {
+  const existingUser = await client.user.findUnique({ where: { email } });
   if (existingUser) {
     throw new AppError('Email already in use', 400);
   }
 
   const hashedPassword = await hashPassword(password);
-  const user = await prisma.user.create({
+  const user = await client.user.create({
     data: {
       email,
       password: hashedPassword,
       name,
+      role
     },
     select: {
       id: true,
@@ -32,7 +33,7 @@ export const register = async ({ email, password, name }: RegisterInput): Promis
 };
 
 export const login = async ({ email, password }: LoginInput): Promise<AuthResponse> => {
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await client.user.findUnique({ where: { email } });
   if (!user) {
     throw new AppError('Invalid credentials', 401);
   }

@@ -1,3 +1,5 @@
+import { logger } from "./logger";
+
 export class AppError extends Error {
   constructor(
     public message: string,
@@ -20,7 +22,7 @@ export const handleError = (error: Error) => {
     };
   }
 
-  console.error('Unexpected error:', error);
+  logger.error(error,"Unexpected Error");
   return {
     status: 'error',
     message: 'Internal server error',

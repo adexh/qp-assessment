@@ -11,7 +11,7 @@ export const userSchema = z.object({
   id: z.string().uuid().optional(),
   email: z.string().email('Invalid email address'),
   password: passwordSchema,
-  name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name must not exceed 50 characters').optional(),
+  name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name must not exceed 50 characters').nullable(),
   role: z.enum(['USER', 'ADMIN']).default('USER'),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),

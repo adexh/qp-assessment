@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+import Database from './Database';
+import { PrismaClient } from '@prisma/client';
 
 dotenv.config();
 
@@ -12,3 +14,13 @@ export const config = {
   rateLimitWindow: 15 * 60 * 1000, // 15 minutes
   rateLimitMax: 100,
 } as const;
+
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://qp@pass';
+const DATABASE_NAME = process.env.DATABASE_NAME || 'qp';
+
+export const database = Database.getInstance(PrismaClient,{
+  databaseURL: DATABASE_URL,
+  databaseName: DATABASE_NAME
+});
+
+export const client = database.getClient();

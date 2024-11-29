@@ -18,7 +18,7 @@ export const getUsers = async (_req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const { id } = idSchema.parse(req.params);
+    const id = idSchema.parse(req.params);
     const user = await userService.getUserById(id);
     res.json({
       status: 'success',
@@ -34,7 +34,7 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const { id } = idSchema.parse(req.params);
+    const id = idSchema.parse(req.params);
     const data = req.body as UpdateUserInput;
     
     const user = await userService.updateUser(
@@ -58,7 +58,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const { id } = idSchema.parse(req.params);
+    const id = idSchema.parse(req.params);
     await userService.deleteUser(id);
     res.status(204).send();
   } catch (error) {

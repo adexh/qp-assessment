@@ -10,7 +10,6 @@ import { errorHandler, sanitizeInput, addRequestId } from '@/middleware';
 import { config } from '@/config';
 import { specs } from './swagger'
 import swaggerUi  from 'swagger-ui-express'
-import { logger } from '@/utils/logger';
 
 const app = express();
 
