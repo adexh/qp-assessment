@@ -6,6 +6,11 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/server.ts",
     "build": "prisma generate && tsc && tsc-alias",
+    "docker:build": "docker build -t express-app .",
+    "dev:db:migrate": "prisma migrate dev",
+    "prod:db:migrate": "prisma migrate deploy",
+    "prod:db:seed":"prisma db seed",
+    "start": "npm run prod:db:migrate && npm run prod:db:seed && node ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
