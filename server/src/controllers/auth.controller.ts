@@ -34,6 +34,6 @@ export const login = async (req: Request, res: Response) => {
     if (error instanceof AppError) {
       throw error;
     }
-    throw new AppError('Login failed', 500);
+    throw new AppError('Login failed', 500, false, error);
   }
 };

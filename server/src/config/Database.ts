@@ -31,6 +31,7 @@ class Database {
           url: this.connectionURL,
         },
       },
+      log: [ 'query','info','error','warn' ]
     });
   }
 

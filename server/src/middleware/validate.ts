@@ -13,11 +13,11 @@ export const validate = (schema: AnyZodObject) => {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const errors = error.errors.map((err) => ({
+        const errors = error.issues.map((err) => ({
           field: err.path.join('.'),
           message: err.message,
         }));
-        next(new AppError('Validation failed', 400, true, errors));
+        next(new AppError('Validation failed', 400, true, undefined, errors));
       }
       next(error);
     }

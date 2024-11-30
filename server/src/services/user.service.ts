@@ -1,10 +1,10 @@
-import { prisma } from '@/lib/prisma';
+import { client } from '@/config/index';
 import { AppError } from '@/utils/error';
 import { Role } from '@prisma/client';
 import { UpdateUserInput, UserResponse } from '@/schemas';
 
 export const getUsers = async (): Promise<UserResponse[]> => {
-  return prisma.user.findMany({
+  return client.user.findMany({
     select: {
       id: true,
       email: true,
@@ -17,7 +17,7 @@ export const getUsers = async (): Promise<UserResponse[]> => {
 };
 
 export const getUserById = async (id: string): Promise<UserResponse> => {
-  const user = await prisma.user.findUnique({
+  const user = await client.user.findUnique({
     where: { id },
     select: {
       id: true,
@@ -46,7 +46,7 @@ export const updateUser = async (
     throw new AppError('Not authorized', 403);
   }
 
-  return prisma.user.update({
+  return client.user.update({
     where: { id },
     data,
     select: {
@@ -57,11 +57,5 @@ export const updateUser = async (
       createdAt: true,
       updatedAt: true,
     },
-  });
-};
-
-export const deleteUser = async (id: string): Promise<void> => {
-  await prisma.user.delete({
-    where: { id },
   });
 };

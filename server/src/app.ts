@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import routes from '@/routes';
 import { errorHandler, sanitizeInput, addRequestId } from '@/middleware';
 import { config } from '@/config';
-import { specs } from './swagger'
+import { specs } from './swagger';
 import swaggerUi  from 'swagger-ui-express'
 
 const app = express();
@@ -28,8 +28,7 @@ app.use(compression());
 app.use(sanitizeInput);
 app.use(addRequestId);
 
-// Swagger for Dev
-if (config.env !== 'prod' && config.env !== 'production') {
+if( config.env !== 'production' ) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 }
 

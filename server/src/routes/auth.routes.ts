@@ -10,6 +10,8 @@ const router = Router();
  * @swagger
  * /api/auth/register:
  *   post:
+ *     tags:
+ *       - Auth
  *     summary: Retrieve an example message
  *     security:
  *       - bearerAuth: []
@@ -48,6 +50,8 @@ router.post(
  * @swagger
  * /api/auth/login:
  *   post:
+ *     tags:
+ *       - Auth
  *     summary: Retrieve an example message
  *     security:
  *       - bearerAuth: []
@@ -69,7 +73,35 @@ router.post(
  *                 example: StrongPassword123#
  *     responses:
  *       200:
- *         description: A successful response
+ *         description: Login successful, JWT token generated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                         email:
+ *                           type: string
+ *                         name:
+ *                           type: string
+ *                         role:
+ *                           type: string
+ *                         createdAt:
+ *                           type: string
+ *                         updatedAt:
+ *                           type: string
+ *                     token:
+ *                       type: string
+ *                       description: JWT Token for authentication
  */
 router.post(
   '/login',
